@@ -28,4 +28,4 @@ class LineBuffer:
             return line
         raise StopIteration()
 
-    next = __next__ # for compatability—remove when nothing else refers to LineBuffer.next()
+    next = __next__ # __next__() in Python 3; next() in Python 2
