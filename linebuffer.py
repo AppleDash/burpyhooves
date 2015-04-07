@@ -9,24 +9,23 @@ class LineBuffer:
         return "\n" in self.data
 
     def pop_line(self):
-        if not self.has_line():
+        try:
+            line, self.data = self.data.split("\n", 1)
+        except ValueError:
             return None
-
-        lines = self.data.split("\n")
-        line = lines.pop(0)
-        self.data = "\n".join(lines)
         return line.strip()
 
     def flush(self):
-        temp = self.data
-        self.data = ""
-        return temp
+        data, self.data = self.data, ""
+        return data
 
     def __iter__(self):
         return self
 
-    def next(self):
-        if self.has_line():
-            return self.pop_line()
+    def __next__(self):
+        line = self.pop_line()
+        if line:
+            return line
+        raise StopIteration()
 
-        raise StopIteration
+    next = __next__ # __next__() in Python 3; next() in Python 2
