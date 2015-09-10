@@ -85,12 +85,8 @@ class IRCConnection:
             sock.setproxy(proxy_type, proxy_host, proxy_port, rdns=True)
         else:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        _sock = sock
 
         if use_ssl:
-            sock = ssl.SSLSocket(sock, do_handshake_on_connect=False)
-            # Trust me, I'm a doctor.
-            sock.connect = _sock.connect
-            sock._sslobj = sock._context._wrap_socket(sock._sock, sock.server_side, sock.server_hostname, ssl_sock=sock)
-
+            sock = ssl.wrap_socket(sock)
+        
         self.socket = sock
