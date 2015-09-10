@@ -60,7 +60,7 @@ class IRCConnection:
     def write_line(self, line, force=False):
         with self.lock:  # We use a lock here because some modules might call reply() from a new thread, which might end up breaking here.
             if force:
-                self.socket.send("%s\r\n" % line)
+                self.socket.send(bytes("%s\r\n" % line, encoding="utf8"))
             else:
                 self.sendq.append(line)
 
@@ -88,5 +88,5 @@ class IRCConnection:
 
         if use_ssl:
             sock = ssl.wrap_socket(sock)
-        
+
         self.socket = sock
