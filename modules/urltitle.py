@@ -14,7 +14,6 @@
 # along with BurpyHooves.  If not, see <http://www.gnu.org/licenses/>.
 import re
 import logging
-import urllib2
 import threading
 
 from bs4 import BeautifulSoup
