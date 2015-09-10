@@ -55,7 +55,7 @@ class TitleFetchThread(threading.Thread):
             logging.error("urltitle: Error fetching title for URL '%s': %s" % (self.url, str(e)))
             return
 
-        soup = BeautifulSoup(data)
+        soup = BeautifulSoup(data, "lxml")
         if hasattr(soup, "title") and soup.title is not None:
             safe_title = soup.title.text.strip().replace("\r", "").replace("\n", "")[:128]
             self.reply_func("[ %s ] - %s" % (safe_title, self.url))
