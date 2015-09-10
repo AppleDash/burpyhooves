@@ -42,7 +42,7 @@ class HookManager:
         return the_id
 
     def _add_hooks(self):
-        for event, callbackList in self.waiting_hooks.iteritems():
+        for event, callbackList in self.waiting_hooks.items():
             self.hooks[event].extend(callbackList)
 
         self.waiting_hooks = defaultdict(list)
@@ -55,7 +55,7 @@ class HookManager:
         self._remove_hooks()
 
     def _remove_hooks(self):
-        for _, hooks in self.hooks.iteritems():
+        for _, hooks in self.hooks.items():
             remove = []
             for hook in hooks:
                 if hook.id in self.waiting_to_unhook:
