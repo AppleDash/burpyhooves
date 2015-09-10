@@ -20,9 +20,8 @@ import socket
 import logging
 import threading
 
-from urlparse import urlparse
 from linebuffer import LineBuffer
-
+from urllib.parse import urlparse
 
 class IRCConnection:
     def __init__(self, host, port, use_ssl=False, proxy=None, sendq_delay=0):
