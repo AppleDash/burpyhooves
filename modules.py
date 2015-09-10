@@ -59,6 +59,11 @@ class ModuleManager:
                 self.on_error("Error loading module '%s': Not a Module (forgetting something?)" % name)
                 return False
 
+            for depname in loaded_module.depends:
+                if depname not in self.modules:
+                    self.on_error("Error loading module '%s': Dependency '%s' not loaded!" % (name, depname))
+                    return False
+
             setattr(loaded_module, "bot", self.bot)
             loaded_module._module_init(self.bot)
             if hasattr(loaded_module, "module_init"):
@@ -109,6 +114,7 @@ class ModuleManager:
 class Module:
     name = "Unknown"
     description = "Unknown"
+    depends = []
 
     def __init__(self):
         """
