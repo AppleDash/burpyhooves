@@ -91,7 +91,8 @@ class BurpyHooves:
             if ln.params[1] == "ACK" and ln.params[-1] == "sasl" and self.net["sasl"]["use"]:
                 self.raw("AUTHENTICATE PLAIN")
         elif ln.command == "AUTHENTICATE":
-            magic = base64.b64encode("%s\x00%s\x00%s" % (self.net["sasl"]["username"], self.net["sasl"]["username"], self.net["sasl"]["password"]))
+            magic = "%s\x00%s\x00%s" % (self.net["sasl"]["username"], self.net["sasl"]["username"], self.net["sasl"]["password"])
+            magic = base64.b64encode(magic.encode("ascii"))
             self.raw("AUTHENTICATE %s" % magic)
         elif ln.command == "903":
             self.raw("CAP END")
