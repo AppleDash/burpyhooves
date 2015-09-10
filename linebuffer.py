@@ -13,22 +13,29 @@
 # You should have received a copy of the#  GNU General Public License
 # along with BurpyHooves.  If not, see <http://www.gnu.org/licenses/>.
 class LineBuffer:
-    def __init__(self, data=""):
+    def __init__(self, data=None):
+        if not data:
+            data = bytes()
+
         self.data = data
 
     def append(self, data):
         self.data += data
 
     def has_line(self):
-        return "\n" in self.data
+        return b"\n" in self.data
 
     def pop_line(self):
         if not self.has_line():
             return None
 
-        lines = self.data.split("\n")
+        lines = self.data.split(b"\n")
         line = lines.pop(0)
-        self.data = "\n".join(lines)
+        try:
+            line = line.decode("utf8")
+        except UnicodeDecodeError:
+            line = line.decode("ascii")
+        self.data = b"\n".join(lines)
         return line.strip()
 
     def flush(self):
@@ -39,7 +46,7 @@ class LineBuffer:
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self.has_line():
             return self.pop_line()
 
