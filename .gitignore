@@ -68,3 +68,4 @@ burpyhooves.db
 # Private modules
 modules/eval.py
 modules/sex.py
+modules/test.py
