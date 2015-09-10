@@ -292,7 +292,7 @@ class BurpyHooves:
             "JOIN": self.on_raw_join,
             "NICK": self.on_raw_nick
         }
-        for cm, cb in hooks.iteritems():
+        for cm, cb in hooks.items():
             self.hook_numeric(cm, cb)
 
     def on_raw_353(self, bot, ln):
