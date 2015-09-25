@@ -42,8 +42,6 @@ class BurpyHooves:
         self.state = {}  # Dict used to hold stuff like last line received and last message etc...
         self.db = Database("etc/burpyhooves.db")
         self.db.connect()
-        self.names = defaultdict(list)
-        self._setup_hooks()
         logging.basicConfig(level=getattr(logging, self.config["misc"]["loglevel"]), format='[%(asctime)s] %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
         self.requests_session = requests.session()
         if self.config["misc"].get("http_proxy", "none") != "none":
@@ -282,56 +280,6 @@ class BurpyHooves:
         @return: requests.Response object.
         """
         return self.requests_session.post(url, **kwargs)
-
-    # Internal hooks
-    def _setup_hooks(self):
-        hooks = {
-            "353": self.on_raw_353,
-            "366": self.on_raw_366,
-            "PART": self.on_raw_part,
-            "QUIT": self.on_raw_quit,
-            "JOIN": self.on_raw_join,
-            "NICK": self.on_raw_nick
-        }
-        for cm, cb in hooks.items():
-            self.hook_numeric(cm, cb)
-
-    def on_raw_353(self, bot, ln):
-        chan = ln.params[2]
-        names = ln.params[-1].split(" ")
-        if self.state.get("names_%s" % chan, False):
-            self.names[chan].extend(names)
-        else:
-            self.state["names_%s" % chan] = True
-            self.names[chan] = names
-
-    def on_raw_366(self, bot, ln):
-        self.state["names_%s" % ln.params[1]] = False
-
-    def on_raw_part(self, bot, ln):
-        nick = ln.hostmask.nick
-        chan = ln.params[0]
-        self.names[chan].remove(nick)
-
-    def on_raw_quit(self, bot, ln):
-        nick = ln.hostmask.nick
-        for chan, names in self.names.iteritems():
-            if nick in names:
-                names.remove(nick)
-
-    def on_raw_join(self, bot, ln):
-        nick = ln.hostmask.nick
-        chan = ln.params[0]
-        self.names[chan].append(nick)
-
-    def on_raw_nick(self, bot, ln):
-        old = ln.hostmask.nick
-        new = ln.params[0]
-        for chan, names in self.names.iteritems():
-            if old in names:
-                names.remove(old)
-                names.append(new)
-
 
 conf = "etc/burpyhooves.json"
 if len(sys.argv) > 1:
