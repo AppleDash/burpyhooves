@@ -22,12 +22,6 @@ class NickTrackingModule(Module):
     def module_init(self, bot):
         self.bot.names = collections.defaultdict(list)
         self.setup_hooks()
-        self.hook_command("nicks_test", self.on_command_modload)
-
-    def on_command_nicks_test(self, bot, event_args):
-        args = event_args["args"][0]
-        for n in bot.nicks[args]:
-            bot.reply(n[:-1] + "|" + n[-1])
 
     def setup_hooks(self):
         hooks = {
