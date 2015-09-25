@@ -129,12 +129,12 @@ class Module:
         for hook in self.hooks:
             bot.unhook_something(hook)
 
-    def hook_command(self, command, callback):
+    def hook_command(self, command, callback, help_text=None):
         """
         Hook a command in the bot.
         See BurpyHooves.hook_command()
         """
-        hook = self.bot.hook_command(command, callback)
+        hook = self.bot.hook_command(command, callback, help_text)
         self.hooks.append(hook)
 
     def hook_numeric(self, event, callback):

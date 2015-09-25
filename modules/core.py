@@ -20,12 +20,15 @@ class CoreModule(Module):
     description = "Provides core management functionality for the bot."
 
     def module_init(self, bot):
-        self.hook_command("modload", self.on_command_modload)
-        self.hook_command("modunload", self.on_command_modunload)
-        self.hook_command("modreload", self.on_command_modreload)
-        self.hook_command("rehash", self.on_command_rehash)
-        self.hook_command("join", self.on_command_join)
-        self.hook_command("part", self.on_command_part)
+        self.hook_command("modload", self.on_command_modload, "Load the given module.")
+        self.hook_command("modunload", self.on_command_modunload, "Unload the given module.")
+        self.hook_command("modreload", self.on_command_modreload, "Reload the given module.")
+        self.hook_command("modlist", self.on_command_modlist, "Show a list of modules the bot has loaded.")
+        self.hook_command("rehash", self.on_command_rehash, "Reload the bot's configuration file.")
+        self.hook_command("join", self.on_command_join, "Cause the bot to join the given channel.")
+        self.hook_command("part", self.on_command_part, "Cause the bot to part the given channel.")
+        self.hook_command("commands", self.on_command_commands, "Show a list of commands the bot accepts.")
+        self.hook_command("help", self.on_command_help, "Show help for the given command.")
 
     def on_command_modload(self, bot, event_args):
         args = event_args["args"]
@@ -77,6 +80,13 @@ class CoreModule(Module):
         else:
             bot.reply("Successfully reloaded module: %s!" % to_reload)
 
+    def on_command_modlist(self, bot, event_args):
+        if not bot.check_permission():
+            return
+
+        modules = bot.module_manager.modules.keys()
+        bot.reply("I have the following modules: %s." % ", ".join(modules))
+
     def on_command_rehash(self, bot, event_args):
         if not bot.check_permission():
             return
@@ -105,3 +115,18 @@ class CoreModule(Module):
 
         bot.part(args[0])
         bot.reply("I have parted %s." % args[0])
+
+    def on_command_commands(self, bot, event_args):
+        commands = bot.list_commands()
+        bot.reply("I respond to the following commands: %s. Try !help <command> for more information on a particular command." % ", ".join(commands))
+
+    def on_command_help(self, bot, event_args):
+        args = event_args["args"]
+        if not bot.check_condition(len(args) == 1, "Usage: HELP <command name>"):
+            return
+
+        help = bot.help.get(args[0].lower(), "")
+        if help:
+            bot.reply("Help for command %s: %s" % (args[0], help))
+        else:
+            bot.reply("No help for command %s." % args[0])

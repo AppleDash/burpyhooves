@@ -75,8 +75,7 @@ class HookManager:
                 try:
                     hook.callback(self.bot, event_args)
                 except Exception as e:
-                    logging.error("Error running hooks for event %s!" % event, exc_info=sys.exc_info())
-                    #traceback.print_exc()
+                    logging.exception("Error running hooks for event %s!" % event)
 
         self._remove_hooks()
         self._add_hooks()
@@ -87,7 +86,7 @@ class HookManager:
         if ln.command == "PRIVMSG":
             message = ln.params[-1]
             splitmsg = message.split(" ")
-            if message and  message[0] == self.bot.config["misc"]["command_prefix"]:
+            if any(splitmsg[0].startswith(prefix) for prefix in self.bot.config["misc"]["command_prefix"]):
                 command = splitmsg[0][1:]
                 args = splitmsg[1:]
                 event_args = {

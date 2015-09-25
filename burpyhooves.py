@@ -50,6 +50,7 @@ class BurpyHooves:
                 self.requests_session.proxies = {"http": proxy, "https": proxy}
 
         self.flood_verbs = [x.lower() for x in self.net.get("flood_verbs", [])]
+        self.help = {}
 
     def run(self):
         self.connection.connect()
@@ -122,13 +123,19 @@ class BurpyHooves:
         self.config = json.load(open(self.config_file))
 
     # Helper functions
-    def hook_command(self, cmd, callback):
+    def hook_command(self, cmd, callback, help_text=None):
         """
         Register a command hook to the bot.
         @param cmd: Command name to hook.
         @param callback: Event callback function to call when this command is ran.
+        @param help_text: Help text for this command, no help if not specified.
         @return: ID of the new hook. (Used for removal later)
         """
+        cmd = cmd.lower()
+
+        if help_text:
+            self.help[cmd] = help_text
+
         return self.hook_manager.add_hook(Hook("command_%s" % cmd, callback))
 
     def hook_numeric(self, numeric, callback):
@@ -139,6 +146,13 @@ class BurpyHooves:
         @return: ID of the new hook. (Used for removal later)
         """
         return self.hook_manager.add_hook(Hook("irc_raw_%s" % numeric, callback))
+
+    def list_commands(self):
+        """
+        Get a list of all commands the bot knows about.
+        @return: list of command names
+        """
+        return [hook[8:] for hook in self.hook_manager.hooks.keys() if hook.startswith("command_")]  # len("command_") == 8
 
     def unhook_something(self, the_id):
         """
