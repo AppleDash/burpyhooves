@@ -1,8 +1,8 @@
 {
 	"me": {
-		"nicks": ["NotBurpyHooves"],
-		"ident": "nbh",
-		"gecos": "Not Burpy Hooves"
+		"nicks": ["Buh"],
+		"ident": "buh",
+		"gecos": "Buh"
 	},
 
 	"network": {
@@ -14,7 +14,7 @@
 		"sasl": {
             "use": false,
             "method": "plain",
-            "username": "NotBurpyHooves",
+            "username": "Buh",
             "password": "s3cur3p4ss"
         },
         "flood_interval": 0.5,

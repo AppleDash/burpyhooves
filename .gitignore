@@ -53,14 +53,14 @@ coverage.xml
 docs/_build/
 
 # bot configs
-etc/burpyhooves.json
+etc/buhirc.json
 etc/permissions.json
-burpyhooves.json
+buhirc.json
 eval-cn.json
 sex.json
 
 # bot database
-burpyhooves.db
+buhirc.db
 
 # PyCharm
 .idea/*

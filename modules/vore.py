@@ -1,17 +1,17 @@
-# This file is part of BurpyHooves.
+# This file is part of BuhIRC.
 # 
-# BurpyHooves is free software: you can redistribute it and/or modify
+# BuhIRC is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 # 
-# BurpyHooves is distributed in the hope that it will be useful,
+# BuhIRC is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the#  GNU General Public License
-# along with BurpyHooves.  If not, see <http://www.gnu.org/licenses/>.
+# along with BuhIRC.  If not, see <http://www.gnu.org/licenses/>.
 import re
 import random
 
@@ -41,7 +41,7 @@ class VoreModule(Module):
     def do_command_reply(self, bot, target, replies):
         # Replies is a 3-tuple of lists that looks like: (replies for target=me, replies for target=all, replies for target=user)
         reply = None
-        if re.match(self.self_regex, target, re.IGNORECASE):  # !eat BurpyHooves
+        if re.match(self.self_regex, target, re.IGNORECASE):  # !eat BuhIRC
             reply = random.choice(replies[0])
         elif re.match(self.all_regex, target, re.IGNORECASE):  # !eat everypony
             reply = random.choice(replies[1])

@@ -1,17 +1,17 @@
-# This file is part of BurpyHooves.
+# This file is part of BuhIRC.
 # 
-# BurpyHooves is free software: you can redistribute it and/or modify
+# BuhIRC is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 # 
-# BurpyHooves is distributed in the hope that it will be useful,
+# BuhIRC is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the#  GNU General Public License
-# along with BurpyHooves.  If not, see <http://www.gnu.org/licenses/>.
+# along with BuhIRC.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import logging
 import traceback
@@ -132,7 +132,7 @@ class Module:
     def hook_command(self, command, callback, help_text=None):
         """
         Hook a command in the bot.
-        See BurpyHooves.hook_command()
+        See BuhIRC.hook_command()
         """
         hook = self.bot.hook_command(command, callback, help_text)
         self.hooks.append(hook)
@@ -140,7 +140,7 @@ class Module:
     def hook_numeric(self, event, callback):
         """
         Hook a raw IRC numeric in the bot.
-        See BurpyHooves.hook_numeric()
+        See BuhIRC.hook_numeric()
         """
         hook = self.bot.hook_numeric(event, callback)
         self.hooks.append(hook)

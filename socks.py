@@ -39,7 +39,7 @@ Minor modifications made by Mario Vilas (http://breakingcode.wordpress.com/)
 mainly to merge bug fixes found in Sourceforge
 
 More minor modifications made by AppleDash
-for use in BurpyHooves. (https://github.com/AppleDash/burpyhooves)
+for use in BuhIRC. (https://github.com/AppleDash/burpyhooves)
 
 """
 

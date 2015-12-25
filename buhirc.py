@@ -1,18 +1,18 @@
 #!/usr/bin/env python2
-# This file is part of BurpyHooves.
+# This file is part of BuhIRC.
 # 
-# BurpyHooves is free software: you can redistribute it and/or modify
+# BuhIRC is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 # 
-# BurpyHooves is distributed in the hope that it will be useful,
+# BuhIRC is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the#  GNU General Public License
-# along with BurpyHooves.  If not, see <http://www.gnu.org/licenses/>.
+# along with BuhIRC.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import json
 import base64
@@ -28,7 +28,7 @@ from connection import IRCConnection
 from hooks import HookManager, Hook
 
 
-class BurpyHooves:
+class BuhIRC:
     def __init__(self, config_file):
         self.config_file = config_file
         self.config = json.load(open(self.config_file))
@@ -40,7 +40,7 @@ class BurpyHooves:
         self.connection = IRCConnection(self.net["address"], self.net["port"], self.net["ssl"], self.config["proxies"].get(self.net.get("proxy", "none"), None), self.net.get("flood_interval", 0.0))
         self.running = True
         self.state = {}  # Dict used to hold stuff like last line received and last message etc...
-        self.db = Database("etc/burpyhooves.db")
+        self.db = Database("etc/buhirc.db")
         self.db.connect()
         logging.basicConfig(level=getattr(logging, self.config["misc"]["loglevel"]), format='[%(asctime)s] %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
         self.requests_session = requests.session()
@@ -295,13 +295,15 @@ class BurpyHooves:
         """
         return self.requests_session.post(url, **kwargs)
 
-conf = "etc/burpyhooves.json"
-if len(sys.argv) > 1:
-    conf = sys.argv[1]
+if __name__ == "__main__":
+    conf = "etc/buhirc.json"
+    if len(sys.argv) > 1:
+        conf = sys.argv[1]
 
-bh = BurpyHooves(conf)
-try:
-    bh.run()
-except KeyboardInterrupt:
-    logging.info("Interrupted, exiting cleanly!")
-    bh.stop()
+    b = BuhIRC(conf)
+    try:
+        b.run()
+    except KeyboardInterrupt:
+        logging.info("Interrupted, exiting cleanly!")
+    b.stop()
+

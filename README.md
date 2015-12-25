@@ -1,13 +1,14 @@
-burpyhooves
+BuhIRC
 ================
 
-##### This is a rewrite/clone of another IRC bot by the same name from a channel on Canternet. It is, however, slowly morphing into its own generic bot framework.
+##### Every other Python IRC bot framework I've found has been slow, badly-written, hard to use, or othwewise unsuitable for my needs. BuhIRC aims to solve that.
 
-BurpyHooves runs on Python 3, and has the following dependancies, obtainable through pip:
+BuhIRC runs on Python 3, and has the following dependancies, obtainable through pip:
 
 - `requests`: HTTP library
 - `beautifulsoup4`: HTML parsing library
 - `lxml`: Fast HTML parser
 
-If you want to run this for some reason, you probably want to copy `doc/burpyhooves.json.example` and `doc/permissions.json.example` to `etc/burpyhooves.json` and `etc/permissions.json` and edit them to your liking.
-You will then want to run `python3 burpyhooves.py`
+If you want to run this for some reason, you probably want to copy `doc/buhirc.json.example` and `doc/permissions.json.example` to `etc/buhirc.json` and `etc/permissions.json` and edit them to your liking.
+You will then want to run `./buhirc.py`
+
