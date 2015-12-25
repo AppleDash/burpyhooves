@@ -1,7 +1,7 @@
 BuhIRC
 ================
 
-##### Every other Python IRC bot framework I've found has been slow, badly-written, hard to use, or othwewise unsuitable for my needs. BuhIRC aims to solve that.
+##### Every other Python IRC bot framework I've found has been slow, badly-written, hard to use, or otherwise unsuitable for my needs. BuhIRC aims to solve that.
 
 BuhIRC runs on Python 3, and has the following dependancies, obtainable through pip:
 
