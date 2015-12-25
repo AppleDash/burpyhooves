@@ -20,7 +20,7 @@ class NickTrackingModule(Module):
     description = "Tracks users' nicks and stores them in the bot's memory"
     
     def module_init(self, bot):
-        self.bot.names = collections.defaultdict(list)
+        self.bot.names = defaultdict(list)
         self.setup_hooks()
 
     def setup_hooks(self):
