@@ -53,14 +53,10 @@ coverage.xml
 docs/_build/
 
 # bot configs
-etc/buhirc.json
-etc/permissions.json
-buhirc.json
-eval-cn.json
-sex.json
+*.json
 
 # bot database
-buhirc.db
+*.db
 
 # PyCharm
 .idea/*
@@ -69,3 +65,5 @@ buhirc.db
 modules/eval.py
 modules/sex.py
 modules/test.py
+modules/fold.py
+
